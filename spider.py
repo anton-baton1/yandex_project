@@ -4,10 +4,12 @@ import pygame
 class Spider(pygame.sprite.Sprite):
     image = pygame.image.load("data/spider_image.png")
 
-    def __init__(self, platform_group_name, *group):
+    def __init__(self, pos, platform_group_name, *group):
         super().__init__(*group)
         self.image = Spider.image
         self.rect = self.image.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
         self.platform_group_name = platform_group_name
 
     def update(self):

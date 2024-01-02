@@ -27,7 +27,7 @@ class Web(pygame.sprite.Sprite):
         if not pygame.sprite.spritecollide(self.spider, self.spider.platform_group_name, False):
             self.acceleration = -0.01 * math.sin(self.angle)
             self.vel += self.acceleration
-            self.vel *= 0.98  # демпфинг
+            self.vel *= 0.99  # демпфинг
             self.angle += self.vel
 
         self.spider.rect.x = round(self.rect.x + (self.rect.width / 2 - self.spider.rect.width / 2) +

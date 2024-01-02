@@ -14,7 +14,9 @@ GREEN = pygame.Color("green")
 BLUE = pygame.Color("blue")
 BLACK = pygame.Color("#000000")
 WHITE = pygame.Color(255, 255, 255)
-FPS = 30
+FPS = 60
+WEB_LENGTH = 300
+LEVEL = 1
 
 
 def terminate():
@@ -53,6 +55,24 @@ def start_screen():
         clock.tick(FPS)
 
 
+def generate_level(num):
+    filename = f"maps/map{num}.txt"
+    with open(filename, 'r') as mapFile:
+        level_map = [line.strip() for line in mapFile]
+    max_width = max(map(len, level_map))
+    level = list(map(lambda x: x.ljust(max_width, '.'), level_map))
+    print(*level, sep="\n")
+    px, py = None, None
+    for y in range(len(level)):
+        for x in range(len(level[y])):
+            if level[y][x] == '#':
+                Platform((x * 40, y * 40), (40, 40), platforms_group, all_sprites)
+            elif level[y][x] == '@':
+                px, py = x, y
+    new_player = Spider((px * 40, py * 40), platforms_group, all_sprites)
+    return new_player
+
+
 screen = pygame.display.set_mode(SIZE)
 clock = pygame.time.Clock()
 pygame.display.set_caption("MY GAME")
@@ -60,18 +80,14 @@ pygame.display.set_caption("MY GAME")
 all_sprites = pygame.sprite.Group()
 platforms_group = pygame.sprite.Group()
 
-spider = Spider(platforms_group, all_sprites)
-spider.rect.x = WIDTH / 2
-spider.rect.y = HEIGHT / 2
-
-ground = Platform((0, HEIGHT - 20), (WIDTH, 20), platforms_group, all_sprites)
+#ground = Platform((0, HEIGHT - 20), (WIDTH, 20), platforms_group, all_sprites)
 
 running = True
 spider_flag = True
 web_flag = False
 
 start_screen()
-
+spider = generate_level(LEVEL)
 while running:
     clock.tick(FPS)
     screen.fill(BLACK)
@@ -80,7 +96,10 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and spider_flag:
             web = Web(event.pos, spider, all_sprites)
-            web_flag = True
+            if web.length > WEB_LENGTH:
+                all_sprites.remove(web)
+            else:
+                web_flag = True
         if event.type == pygame.MOUSEBUTTONUP and event.button == 3 and spider_flag:
             web.length = 0
             web.angle = 0
