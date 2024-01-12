@@ -9,7 +9,6 @@ def generate_level(num):
         level_map = [line.strip() for line in mapFile]
     max_width = max(map(len, level_map))
     level = list(map(lambda x: x.ljust(max_width, '.'), level_map))
-    print(*level, sep="\n")
     px, py = None, None
     for y in range(len(level)):
         for x in range(len(level[y])):

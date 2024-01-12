@@ -48,6 +48,7 @@ while running:
     if web_flag:
         pygame.draw.line(screen, WHITE, (web.rect.x + web.rect.width / 2, web.rect.y + web.rect.height / 2),
                          (spider.rect.x + spider.rect.width / 2, spider.rect.y + spider.rect.height / 2), 2)
+        spider.vel_y = 0
     all_sprites.draw(screen)
     all_sprites.update()
     pygame.display.flip()
