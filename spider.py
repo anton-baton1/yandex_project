@@ -1,8 +1,10 @@
 import pygame
 
+from load_image import load_image
+
 
 class Spider(pygame.sprite.Sprite):
-    image = pygame.image.load("data/spider_image.png")
+    image = load_image("demo_spider.png", -1)
 
     def __init__(self, pos, platform_group_name, *group):
         super().__init__(*group)
@@ -14,7 +16,6 @@ class Spider(pygame.sprite.Sprite):
 
         self.acceleration_y = 0
         self.velocity_y = 0
-
         self.velocity_x = 0
 
     def update(self):

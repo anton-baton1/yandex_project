@@ -3,6 +3,7 @@ import pygame
 from constants import RED, BLUE, BLACK, screen, SIZE
 from terminate import terminate
 
+
 def start_screen():
     fon = pygame.Surface(SIZE)
     fon.fill(BLUE)
