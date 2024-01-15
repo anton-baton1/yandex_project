@@ -1,7 +1,7 @@
 import sys
 
 import pygame
-
+from terminate import terminate
 from constants import WEB_LENGTH, LEVEL, FPS, BLACK, WHITE, screen, all_sprites
 from generate_level import generate_level
 from start_screen import start_screen
@@ -9,16 +9,9 @@ from web import Web
 
 pygame.init()
 
-
-def terminate():
-    pygame.quit()
-    sys.exit()
-
-
 clock = pygame.time.Clock()
 pygame.display.set_caption("MY GAME")
 
-running = True
 spider_flag = True
 web_flag = False
 
@@ -26,12 +19,12 @@ start_screen()
 
 spider = generate_level(LEVEL)
 
-while running:
+while True:
     clock.tick(FPS)
     screen.fill(BLACK)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            terminate()
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and spider_flag:
             web = Web(event.pos, spider, all_sprites)
             if web.length > WEB_LENGTH:
@@ -48,9 +41,8 @@ while running:
     if web_flag:
         pygame.draw.line(screen, WHITE, (web.rect.x + web.rect.width / 2, web.rect.y + web.rect.height / 2),
                          (spider.rect.x + spider.rect.width / 2, spider.rect.y + spider.rect.height / 2), 2)
-        spider.vel_y = 0
+        spider.velocity_y = 0
     all_sprites.draw(screen)
     all_sprites.update()
     pygame.display.flip()
-pygame.quit()
-sys.exit(pygame.quit())
+terminate()

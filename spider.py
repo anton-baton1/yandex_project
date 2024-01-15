@@ -12,34 +12,39 @@ class Spider(pygame.sprite.Sprite):
         self.rect.y = pos[1]
         self.platform_group_name = platform_group_name
 
-        self.acc_y = 0
-        self.vel_y = 0
+        self.acceleration_y = 0
+        self.velocity_y = 0
 
-        self.vel_x = 0
-        self.collide_count = 0
+        self.velocity_x = 0
 
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d]:
-            self.vel_x = 5
-        if keys[pygame.K_a]:
-            self.vel_x = -5
-
         if keys[pygame.K_SPACE] and pygame.sprite.spritecollide(self, self.platform_group_name,
-                                                                False) and self.vel_y == 0:
-            self.acc_y = -10
+                                                                False) and self.velocity_y == 0:
+            self.acceleration_y = -10
         if not pygame.sprite.spritecollide(self, self.platform_group_name, False):
-            self.acc_y = 0.5
+            self.acceleration_y = 0.5
 
-        self.vel_y += self.acc_y
-        self.rect.y += self.vel_y
+        self.velocity_y += self.acceleration_y
+        self.rect.y += self.velocity_y
 
         if pygame.sprite.spritecollide(self, self.platform_group_name, False):
-            if self.vel_y < 0:
-                self.vel_y = -self.vel_y
+            if self.velocity_y < 0:
+                self.velocity_y = -self.velocity_y
             else:
-                self.vel_y = 0
-                self.acc_y = 0
+                self.velocity_y = 0
+                self.acceleration_y = 0
 
-        self.rect.x += self.vel_x
-        self.vel_x = 0
+        coll_right = all([not ((self.rect.top - 15 <= i.rect.top <= self.rect.bottom - 15 or
+                                i.rect.top <= self.rect.top <= i.rect.bottom) and
+                               self.rect.right >= i.rect.left > self.rect.left) for i in self.platform_group_name])
+        coll_left = all([not ((self.rect.top - 15 <= i.rect.top <= self.rect.bottom - 15 or
+                               i.rect.top <= self.rect.top <= i.rect.bottom) and
+                              i.rect.right >= self.rect.left > i.rect.left) for i in self.platform_group_name])
+
+        if keys[pygame.K_d] and coll_right:
+            self.velocity_x = 5
+        if keys[pygame.K_a] and coll_left:
+            self.velocity_x = -5
+        self.rect.x += self.velocity_x
+        self.velocity_x = 0

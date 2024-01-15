@@ -14,10 +14,9 @@ class Web(pygame.sprite.Sprite):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.length = math.sqrt(
-            ((self.spider.rect.x + self.spider.rect.width / 2) - (self.rect.x + self.rect.width / 2)) ** 2 + (
-                    (self.spider.rect.y + self.spider.rect.height / 2) - (self.rect.y + self.rect.height / 2)) ** 2)
-        self.angle = math.sin(
-            ((self.spider.rect.x + self.spider.rect.width / 2) - (self.rect.x + self.rect.width / 2)) / self.length)
+            ((self.spider.rect.right / 2) - (self.rect.right / 2)) ** 2 + (
+                    (self.spider.rect.bottom / 2) - (self.rect.bottom / 2)) ** 2)
+        self.angle = math.sin(((self.spider.rect.right / 2) - (self.rect.right / 2)) / self.length)
         self.vel = 0
         self.acceleration = 0
 
@@ -30,6 +29,6 @@ class Web(pygame.sprite.Sprite):
             self.vel *= 0.995  # демпфинг
             self.angle += self.vel
 
-        self.spider.rect.x = round(self.rect.x + (self.rect.width / 2 - self.spider.rect.width / 2) +
-                                   self.length * math.sin(self.angle))
+        self.spider.rect.x = round(
+            self.rect.top + (self.rect.width / 2 - self.spider.rect.width / 2) + self.length * math.sin(self.angle))
         self.spider.rect.y = round(self.rect.y + self.length * math.cos(self.angle))

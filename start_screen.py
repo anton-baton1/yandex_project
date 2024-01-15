@@ -1,7 +1,7 @@
 import pygame
 
 from constants import RED, BLUE, BLACK, screen, SIZE
-
+from terminate import terminate
 
 def start_screen():
     fon = pygame.Surface(SIZE)
@@ -26,8 +26,8 @@ def start_screen():
 
     while True:
         for event in pygame.event.get():
-            # if event.type == pygame.QUIT:
-            #     terminate()
+            if event.type == pygame.QUIT:
+                terminate()
             if event.type == pygame.MOUSEBUTTONDOWN and play_button.collidepoint(event.pos):
                 return  # начинаем игру
         pygame.display.flip()
