@@ -14,6 +14,7 @@ BLUE = pygame.Color("blue")
 BLACK = pygame.Color("black")
 GRAY = pygame.Color("gray")
 WHITE = pygame.Color("white")
+GREEN = pygame.Color("green")
 
 screen = pygame.display.set_mode(SIZE)
 all_sprites = pygame.sprite.Group()
