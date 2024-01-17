@@ -17,5 +17,6 @@ WHITE = pygame.Color("white")
 GREEN = pygame.Color("green")
 
 screen = pygame.display.set_mode(SIZE)
+clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 platforms_group = pygame.sprite.Group()
