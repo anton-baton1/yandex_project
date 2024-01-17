@@ -5,6 +5,7 @@ from constants import WEB_LENGTH, LEVEL, FPS, WHITE, screen, all_sprites, clock,
 from generate_level import generate_level
 from terminate import terminate
 from web import Web
+from timer import Timer
 
 
 def game():
@@ -15,21 +16,35 @@ def game():
     pygame.draw.line(pause, BLACK, (24, 10), (24, 30), 2)
 
     web_flag = False
+    timer_flag = True
+
+    TIMER_EVENT = pygame.USEREVENT + 1
 
     camera = Camera()
+    timer = Timer(20)
     spider = generate_level(LEVEL)
 
     while True:
         clock.tick(FPS)
         screen.fill(WHITE)
         screen.blit(pause, (0, 0))
+        screen.blit(timer.text, (timer.x, timer.y))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
+
+            if event.type == TIMER_EVENT:
+                timer.update()
+
+            if event.type == pygame.KEYDOWN and timer_flag and event.key in (pygame.K_a, pygame.K_d, pygame.K_SPACE):
+                pygame.time.set_timer(TIMER_EVENT, 10)
+                timer_flag = False
+
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and pause_button.collidepoint(event.pos):
                 print("pause")
-                # pygame.time.delay(1000)
+                pygame.time.delay(5000)
+
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 web = Web(event.pos, spider, all_sprites)
                 if web.length > WEB_LENGTH:
