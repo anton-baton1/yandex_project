@@ -9,7 +9,6 @@ def start_screen():
     fon.fill(BLUE)
     play_button = pygame.draw.rect(fon, RED, (350, 280, 102, 40), 3, 5)
     settings_button = pygame.draw.rect(fon, RED, (350, 340, 102, 40), 3, 5)
-    screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
 
     play_string = font.render("Играть", 1, BLACK)
@@ -22,13 +21,16 @@ def start_screen():
     settings_string_rect.x = 366
     settings_string_rect.y = 350
 
-    screen.blit(settings_string, settings_string_rect)
-    screen.blit(play_string, play_string_rect)
+    fon.blit(settings_string, settings_string_rect)
+    fon.blit(play_string, play_string_rect)
+    screen.blit(fon, (0, 0))
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN and play_button.collidepoint(event.pos):
-                return  # начинаем игру
+                return "play"
+            if event.type == pygame.MOUSEBUTTONDOWN and settings_button.collidepoint(event.pos):
+                return "settings"
         pygame.display.flip()
