@@ -1,8 +1,8 @@
 import pygame
 
-from start_screen import start_screen
 from game import game
 from settings_screen import settings_screen
+from start_screen import start_screen
 
 pygame.init()
 pygame.display.set_caption("MY GAME")

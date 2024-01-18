@@ -1,6 +1,6 @@
 import pygame
 
-from constants import RED, BLUE, BLACK, screen, SIZE, GRAY
+from constants import RED, BLACK, screen, SIZE, GRAY
 from terminate import terminate
 
 
