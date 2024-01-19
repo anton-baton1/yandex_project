@@ -6,11 +6,12 @@ from generate_level import generate_level
 from terminate import terminate
 from timer import Timer
 from web import Web
+from web_thread import WebThread
 
 
 def game():
-    pause = pygame.Surface((40, 40))
-    pause.fill(WHITE)
+    pause = pygame.Surface((40, 40), pygame.SRCALPHA)
+    # pause.fill(WHITE)
     pause_button = pygame.draw.circle(pause, BLACK, (20, 20), 20, 2)
     pygame.draw.line(pause, BLACK, (14, 10), (14, 30), 2)
     pygame.draw.line(pause, BLACK, (24, 10), (24, 30), 2)
@@ -25,11 +26,8 @@ def game():
     spider = generate_level(LEVEL)
 
     while True:
-        # print(timer.seconds)
         clock.tick(FPS)
         screen.fill(WHITE)
-        screen.blit(pause, (0, 0))
-        screen.blit(timer.text, (timer.x, timer.y))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -46,21 +44,21 @@ def game():
                 print("pause")
                 pygame.time.delay(5000)
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                web = Web(event.pos, spider, all_sprites)
-                if web.length > WEB_LENGTH:
-                    all_sprites.remove(web)
-                else:
-                    web_flag = True
+                web = Web(event.pos, all_sprites)
+                web_thread = WebThread(spider, web, all_sprites)
+                print(web_thread.rect)
+                screen.blit(web_thread.image.convert_alpha(), (0, 0))
+                web_flag = True
+                if web_thread.length > WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name, False):
+                    all_sprites.remove(web, web_thread)
+                    web_flag = False
             if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
-                web.length = 0
-                web.angle = 0
-                web.vel = 0
-                web.acceleration = 0
-                all_sprites.remove(web)
+                all_sprites.remove(web, web_thread)
+                del web, web_thread
                 web_flag = False
 
         if web_flag:
-            pygame.draw.line(screen, BLACK, web.rect.center, spider.rect.center, 2)
+            spider.acceleration_y = 0
             spider.velocity_y = 0
 
         camera.update(spider)
@@ -69,4 +67,8 @@ def game():
 
         all_sprites.draw(screen)
         all_sprites.update()
+        screen.blit(pause, (0, 0))
+        screen.blit(timer.text, (timer.x, timer.y))
+        if web_flag:
+            screen.blit(web_thread.image, (0, 0))
         pygame.display.flip()
