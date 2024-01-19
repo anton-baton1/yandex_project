@@ -40,4 +40,5 @@
 + *pygame* для реализации игры
 + *math* для математических вычислений
 
+**Презентация** - https://docs.google.com/presentation/d/1zkGR5NcRLqAxq2EeSL5cnBq5IKEPp-YD_DGanIFpIsg/edit?usp=sharing
 
