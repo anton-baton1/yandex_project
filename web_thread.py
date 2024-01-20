@@ -6,7 +6,7 @@ from constants import SIZE, BLACK, WHITE
 
 
 class WebThread(pygame.sprite.Sprite):
-    image = pygame.Surface(SIZE, pygame.SRCALPHA, 32)
+    image = pygame.Surface(SIZE, pygame.SRCALPHA)
 
     def __init__(self, spider, web, *group):
         super().__init__(*group)

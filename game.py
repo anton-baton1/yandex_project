@@ -1,7 +1,7 @@
 import pygame
 
 from camera import Camera
-from constants import WEB_LENGTH, LEVEL, FPS, WHITE, screen, all_sprites, clock, BLACK
+from constants import WEB_LENGTH, LEVEL, FPS, WHITE, screen, all_sprites, clock, BLACK, SIZE
 from generate_level import generate_level
 from terminate import terminate
 from timer import Timer
@@ -10,6 +10,9 @@ from web_thread import WebThread
 
 
 def game():
+    game_screen = pygame.Surface(SIZE)
+    game_screen.fill(WHITE)
+
     pause = pygame.Surface((40, 40), pygame.SRCALPHA)
     pause_button = pygame.draw.circle(pause, BLACK, (20, 20), 20, 2)
     pygame.draw.line(pause, BLACK, (14, 10), (14, 30), 2)
@@ -27,7 +30,7 @@ def game():
 
     while True:
         clock.tick(FPS)
-        screen.fill(WHITE)
+        game_screen.fill(WHITE)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -46,7 +49,7 @@ def game():
                 web = Web(event.pos, all_sprites)
                 web_thread = WebThread(spider, web, all_sprites)
                 print(web_thread.rect)
-                screen.blit(web_thread.image.convert_alpha(), (0, 0))
+                game_screen.blit(web_thread.image.convert_alpha(), (0, 0))
                 web_flag = True
                 if web_thread.length > WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name, False):
                     all_sprites.remove(web, web_thread)
@@ -63,11 +66,12 @@ def game():
         if web_flag:
             spider.acceleration_y = 0
             spider.velocity_y = 0
-            screen.blit(web_thread.image, (0, 0))
+            game_screen.blit(web_thread.image, (0, 0))
 
-        all_sprites.draw(screen)
+        all_sprites.draw(game_screen)
         if not pause_flag:
             all_sprites.update()
-        screen.blit(pause, (0, 0))
-        screen.blit(timer.text, (timer.x, timer.y))
+        game_screen.blit(pause, (0, 0))
+        game_screen.blit(timer.text, (timer.x, timer.y))
+        screen.blit(game_screen, (0, 0))
         pygame.display.flip()

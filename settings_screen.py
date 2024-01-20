@@ -1,28 +1,57 @@
 import pygame
 
-from constants import RED, BLACK, screen, SIZE, GRAY
+import constants
 from terminate import terminate
+from widgets import Button, Label, InputBox
 
 
 def settings_screen():
-    fon = pygame.Surface(SIZE)
-    fon.fill(GRAY)
-    font = pygame.font.Font(None, 30)
+    settings_window = pygame.Surface(constants.SIZE)
+    settings_window.blit(pygame.image.load("data/settings_window_image.png"), (-150, -50))
 
-    move_left_string = font.render("Влево", 1, BLACK)
-    move_left_string_rect = move_left_string.get_rect()
-    move_left_string_rect.x = 366
-    move_left_string_rect.y = 290
-    x, y, w, h = move_left_string_rect
-    move_left = pygame.draw.rect(fon, RED, (x - 5, y - 5, w + 10, h + 10), 3, 5)
+    back_button = Button(20, 550, 100, 30, "Назад", 15)
+    move_left = InputBox(550, 100, 220, 50, pygame.key.name(constants.bind_move_left).upper())
+    move_right = InputBox(550, 200, 220, 50, pygame.key.name(constants.bind_move_right).upper())
+    jump = InputBox(550, 300, 220, 50, pygame.key.name(constants.bind_jump).upper())
+    move_left_lbl = Label(50, 100, 290, 50, "Движение влево", 20)
+    move_right_lbl = Label(50, 200, 310, 50, "Движение вправо", 20)
+    jump_lbl = Label(50, 300, 130, 50, "Прыжок", 20)
+    widgets = (back_button, move_left, move_right, jump, move_left_lbl, move_right_lbl, jump_lbl)
 
-    fon.blit(move_left_string, move_left_string_rect)
-    screen.blit(fon, (0, 0))
+    text_input_move_left = False
+    text_input_move_right = False
+    text_input_jump = False
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
-            if event.type == pygame.MOUSEBUTTONDOWN and move_left.collidepoint(event.pos):
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                text_input_move_left = False
+                text_input_move_right = False
+                text_input_jump = False
+                if move_left.surface_rect.collidepoint(event.pos):
+                    text_input_move_left = True
+                if move_right.surface_rect.collidepoint(event.pos):
+                    text_input_move_right = True
+                if jump.surface_rect.collidepoint(event.pos):
+                    text_input_jump = True
+            if event.type == pygame.KEYDOWN:
+                if text_input_move_left:
+                    move_left.set_text(pygame.key.name(event.key).upper())
+                    constants.bind_move_left = event.key
+                elif text_input_move_right:
+                    move_right.set_text(pygame.key.name(event.key).upper())
+                    constants.bind_move_right = event.key
+                elif text_input_jump:
+                    jump.set_text(pygame.key.name(event.key).upper())
+                    constants.bind_jump = event.key
+
+            if event.type == pygame.MOUSEBUTTONDOWN and back_button.surface_rect.collidepoint(event.pos):
+                # print(bind_move_right, bind_move_left, bind_jump)
                 return "start"
+        for i in widgets:
+            i.draw(settings_window)
+        constants.screen.blit(settings_window, (0, 0))
         pygame.display.flip()

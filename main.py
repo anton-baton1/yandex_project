@@ -3,6 +3,7 @@ import pygame
 from game import game
 from settings_screen import settings_screen
 from start_screen import start_screen
+from constants import bind_move_right, bind_move_left, bind_jump
 
 pygame.init()
 pygame.display.set_caption("MY GAME")
@@ -13,6 +14,7 @@ settings_screen_open = False
 
 while True:
     if start_screen_open:
+        print(bind_move_right, bind_move_left, bind_jump)
         button = start_screen()
         if button == "play":
             game_open = True
