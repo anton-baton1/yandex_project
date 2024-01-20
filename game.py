@@ -48,7 +48,6 @@ def game():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 web = Web(event.pos, all_sprites)
                 web_thread = WebThread(spider, web, all_sprites)
-                print(web_thread.rect)
                 game_screen.blit(web_thread.image.convert_alpha(), (0, 0))
                 web_flag = True
                 if web_thread.length > WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name, False):

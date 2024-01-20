@@ -8,7 +8,6 @@ LEVEL = 1
 WEB_LENGTH = 300
 
 RED = pygame.Color("red")
-BLUE = pygame.Color("blue")
 BLACK = pygame.Color("black")
 GRAY = pygame.Color("gray")
 WHITE = pygame.Color("white")

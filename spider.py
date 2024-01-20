@@ -1,7 +1,7 @@
 import pygame
 
-from load_image import load_image
 import constants
+from load_image import load_image
 
 
 class Spider(pygame.sprite.Sprite):
@@ -20,10 +20,9 @@ class Spider(pygame.sprite.Sprite):
         self.velocity_x = 0
 
     def update(self):
-        print(constants.bind_move_right, constants.bind_move_left, constants.bind_jump)
         keys = pygame.key.get_pressed()
         if keys[constants.bind_jump] and pygame.sprite.spritecollide(self, self.platform_group_name,
-                                                                False) and self.velocity_y == 0:
+                                                                     False) and self.velocity_y == 0:
             self.acceleration_y = -10
         if not pygame.sprite.spritecollide(self, self.platform_group_name, False):
             self.acceleration_y = 0.5

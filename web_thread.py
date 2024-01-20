@@ -2,7 +2,7 @@ import math
 
 import pygame
 
-from constants import SIZE, BLACK, WHITE
+from constants import SIZE, BLACK
 
 
 class WebThread(pygame.sprite.Sprite):

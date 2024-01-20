@@ -49,7 +49,6 @@ def settings_screen():
                     constants.bind_jump = event.key
 
             if event.type == pygame.MOUSEBUTTONDOWN and back_button.surface_rect.collidepoint(event.pos):
-                # print(bind_move_right, bind_move_left, bind_jump)
                 return "start"
         for i in widgets:
             i.draw(settings_window)
