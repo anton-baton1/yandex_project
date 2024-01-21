@@ -7,7 +7,7 @@ from widgets import Button, Label
 
 def start_screen():
     start_window = pygame.Surface(SIZE)
-    start_window.blit(pygame.image.load("data/start_window_image.png"), (-150, -50))
+    start_window.blit(pygame.image.load("data/jungle.png"), (-150, -50))
 
     sapw = Label(300, 50, 200, 50, "SAPW", 48)
     sa = Label(300, 100, 200, 12, "Spider Adventure", 12)

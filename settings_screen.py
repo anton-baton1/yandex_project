@@ -7,7 +7,7 @@ from widgets import Button, Label, InputBox
 
 def settings_screen():
     settings_window = pygame.Surface(constants.SIZE)
-    settings_window.blit(pygame.image.load("data/settings_window_image.png"), (-150, -50))
+    settings_window.blit(pygame.image.load("data/blured_jungle.png"), (-150, -50))
 
     back_button = Button(20, 550, 100, 30, "Назад", 15)
     move_left = InputBox(550, 100, 220, 50, pygame.key.name(constants.bind_move_left).upper())

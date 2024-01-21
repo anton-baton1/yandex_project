@@ -2,7 +2,7 @@ import pygame
 
 import constants
 from camera import Camera
-from constants import WEB_LENGTH, LEVEL, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
+from constants import WEB_LENGTH, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
 from terminate import terminate
 from timer import Timer
@@ -11,7 +11,7 @@ from web_thread import WebThread
 from pause_screen import pause_screen
 
 
-def game():
+def game(level):
     game_screen = pygame.Surface(SIZE)
 
     pause = pygame.Surface((40, 40), pygame.SRCALPHA)
@@ -27,7 +27,7 @@ def game():
 
     camera = Camera()
     timer = Timer(20)
-    spider, exit = generate_level(LEVEL)
+    spider, exit = generate_level(level)
 
     while True:
         clock.tick(FPS)
