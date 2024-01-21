@@ -61,7 +61,7 @@ def game():
                 del web, web_thread
                 web_flag = False
         if pygame.sprite.collide_mask(spider, exit):
-            return "exit"
+            return "level completed"
 
         camera.update(spider)
         for sprite in all_sprites:
@@ -71,7 +71,6 @@ def game():
             spider.acceleration_y = 0
             spider.velocity_y = 0
             game_screen.blit(web_thread.image, (0, 0))
-        print(sprite.rect, pygame.sprite.spritecollide(spider, spider.platform_group_name, False))
         if not pause_flag:
             all_sprites.draw(game_screen)
             all_sprites.update()
@@ -80,7 +79,7 @@ def game():
             if action == "play":
                 pause_flag = False
             elif action == "restart":
-                return "restart"
+                return
             elif action == "home":
                 game_screen.fill(VERY_DARK_GRAY)
                 return "home"

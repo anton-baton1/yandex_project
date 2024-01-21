@@ -22,16 +22,12 @@ while True:
             start_screen_open = False
     if game_screen_open:
         event = game()
-        if event == "exit":
+        if event == "level completed":
             start_screen_open = True
             game_screen_open = False
         elif event == "home":
             start_screen_open = True
             game_screen_open = False
-        elif event == "restart":
-            print(start_screen_open,
-                  game_screen_open,
-                  settings_screen_open)
 
     if settings_screen_open:
         button = settings_screen()
