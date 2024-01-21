@@ -2,48 +2,47 @@ import pygame
 
 import constants
 from camera import Camera
-from constants import WEB_LENGTH, LEVEL, FPS, WHITE, screen, all_sprites, clock, BLACK, SIZE
+from constants import WEB_LENGTH, LEVEL, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
 from terminate import terminate
 from timer import Timer
 from web import Web
 from web_thread import WebThread
+from pause_screen import pause_screen
 
 
 def game():
     game_screen = pygame.Surface(SIZE)
-    game_screen.fill(WHITE)
 
     pause = pygame.Surface((40, 40), pygame.SRCALPHA)
-    pause_button = pygame.draw.circle(pause, BLACK, (20, 20), 20, 2)
-    pygame.draw.line(pause, BLACK, (14, 10), (14, 30), 2)
-    pygame.draw.line(pause, BLACK, (24, 10), (24, 30), 2)
+    pause_button = pygame.draw.circle(pause, WHITE, (20, 20), 20, 2)
+    pygame.draw.line(pause, WHITE, (14, 10), (14, 30), 2)
+    pygame.draw.line(pause, WHITE, (24, 10), (24, 30), 2)
 
     web_flag = False
-    timer_flag = True
+    timer_flag = False
     pause_flag = False
 
     TIMER_EVENT = pygame.USEREVENT + 1
 
     camera = Camera()
     timer = Timer(20)
-    spider = generate_level(LEVEL)
+    spider, exit = generate_level(LEVEL)
 
     while True:
         clock.tick(FPS)
-        game_screen.fill(WHITE)
-
+        game_screen.fill(VERY_DARK_GRAY)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
 
-            if event.type == TIMER_EVENT and not pause_flag:
+            if event.type == TIMER_EVENT and not pause_flag and timer_flag:
                 timer.update()
 
-            if event.type == pygame.KEYDOWN and timer_flag and event.key in (
+            if event.type == pygame.KEYDOWN and not timer_flag and event.key in (
                     constants.bind_move_left, constants.bind_move_right, constants.bind_jump):
                 pygame.time.set_timer(TIMER_EVENT, 10)
-                timer_flag = False
+                timer_flag = True
 
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and pause_button.collidepoint(
                     event.pos)) or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
@@ -61,6 +60,8 @@ def game():
                 all_sprites.remove(web, web_thread)
                 del web, web_thread
                 web_flag = False
+        if pygame.sprite.collide_mask(spider, exit):
+            return "exit"
 
         camera.update(spider)
         for sprite in all_sprites:
@@ -70,10 +71,19 @@ def game():
             spider.acceleration_y = 0
             spider.velocity_y = 0
             game_screen.blit(web_thread.image, (0, 0))
-
-        all_sprites.draw(game_screen)
+        print(sprite.rect, pygame.sprite.spritecollide(spider, spider.platform_group_name, False))
         if not pause_flag:
+            all_sprites.draw(game_screen)
             all_sprites.update()
+        else:
+            action = pause_screen()
+            if action == "play":
+                pause_flag = False
+            elif action == "restart":
+                return "restart"
+            elif action == "home":
+                game_screen.fill(VERY_DARK_GRAY)
+                return "home"
         game_screen.blit(pause, (0, 0))
         game_screen.blit(timer.text, (timer.x, timer.y))
         screen.blit(game_screen, (0, 0))

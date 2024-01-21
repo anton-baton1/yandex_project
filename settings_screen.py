@@ -10,9 +10,9 @@ def settings_screen():
     settings_window.blit(pygame.image.load("data/settings_window_image.png"), (-150, -50))
 
     back_button = Button(20, 550, 100, 30, "Назад", 15)
-    move_left = InputBox(550, 100, 220, 50, pygame.key.name(pygame.K_a).upper())
-    move_right = InputBox(550, 200, 220, 50, pygame.key.name(pygame.K_d).upper())
-    jump = InputBox(550, 300, 220, 50, pygame.key.name(pygame.K_SPACE).upper())
+    move_left = InputBox(550, 100, 220, 50, pygame.key.name(constants.bind_move_left).upper())
+    move_right = InputBox(550, 200, 220, 50, pygame.key.name(constants.bind_move_right).upper())
+    jump = InputBox(550, 300, 220, 50, pygame.key.name(constants.bind_jump).upper())
     move_left_lbl = Label(50, 100, 290, 50, "Движение влево", 20)
     move_right_lbl = Label(50, 200, 310, 50, "Движение вправо", 20)
     jump_lbl = Label(50, 300, 130, 50, "Прыжок", 20)
