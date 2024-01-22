@@ -98,6 +98,3 @@ class InputBox:
         self.surface.blit(self.text_string, (self.w / 2 - self.text_rect.width / 2,
                                              self.h / 2 - self.text_rect.height / 2))
         screen.blit(self.surface, (self.x, self.y))
-
-    def active(self):
-        pass

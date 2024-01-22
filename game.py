@@ -2,7 +2,6 @@ import json
 
 import pygame
 
-import constants
 from camera import Camera
 from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
@@ -52,8 +51,9 @@ def game(level):
                 timer_flag = True
 
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and pause_button.collidepoint(
-                    event.pos)) or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                    event.pos)) or (event.type == pygame.KEYDOWN and event.key == binds["bind_pause"]):
                 pause_flag = not pause_flag
+
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 web = Web(event.pos, all_sprites)
                 web_thread = WebThread(spider, web, all_sprites)
@@ -68,7 +68,7 @@ def game(level):
                 del web, web_thread
                 web_flag = False
 
-        if spider.rect.y >= 320 and timer_flag:
+        if spider.rect.y >= 320 and timer_flag and not web_flag:
             action = lose_screen()
             if action == "restart":
                 return
