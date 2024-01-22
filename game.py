@@ -2,13 +2,14 @@ import pygame
 
 import constants
 from camera import Camera
-from constants import WEB_LENGTH, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
+from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
 from terminate import terminate
 from timer import Timer
 from web import Web
 from web_thread import WebThread
 from pause_screen import pause_screen
+from win_screen import win_screen
 
 
 def game(level):
@@ -52,7 +53,7 @@ def game(level):
                 web_thread = WebThread(spider, web, all_sprites)
                 game_screen.blit(web_thread.image.convert_alpha(), (0, 0))
                 web_flag = True
-                if web_thread.length > WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name,
+                if web_thread.length > MAX_WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name,
                                                                                      False):
                     all_sprites.remove(web, web_thread)
                     web_flag = False
@@ -61,8 +62,15 @@ def game(level):
                 del web, web_thread
                 web_flag = False
         if pygame.sprite.collide_mask(spider, exit):
-            return "level completed"
-
+            action = win_screen()
+            if action == "next":
+                return "next"
+            elif action == "restart":
+                return
+            elif action == "home":
+                game_screen.fill(VERY_DARK_GRAY)
+                return "home"
+        print(spider.rect)
         camera.update(spider)
         for sprite in all_sprites:
             camera.apply(sprite)

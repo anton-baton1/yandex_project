@@ -28,6 +28,8 @@ def settings_screen():
                 terminate()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.surface_rect.collidepoint(event.pos):
+                    return "home"
                 text_input_move_left = False
                 text_input_move_right = False
                 text_input_jump = False
@@ -48,8 +50,6 @@ def settings_screen():
                     jump.set_text(pygame.key.name(event.key).upper())
                     constants.bind_jump = event.key
 
-            if event.type == pygame.MOUSEBUTTONDOWN and back_button.surface_rect.collidepoint(event.pos):
-                return "start"
         for i in widgets:
             i.draw(settings_window)
         constants.screen.blit(settings_window, (0, 0))

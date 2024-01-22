@@ -13,8 +13,9 @@ def select_level_screen():
     level_1 = Button(10, 10, 50, 50, "1", 24)
     level_2 = Button(110, 110, 50, 50, "2", 24)
     level_3 = Button(210, 210, 50, 50, "3", 24)
+    back_button = Button(20, 550, 100, 30, "Назад", 15)
 
-    widgets = (level_1, level_2, level_3)
+    widgets = (level_1, level_2, level_3, back_button)
 
     while True:
         for event in pygame.event.get():
@@ -22,8 +23,10 @@ def select_level_screen():
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for i in widgets:
-                    if i.surface_rect.collidepoint(event.pos):
-                        return i.text
+                    if i is back_button and i.surface_rect.collidepoint(event.pos):
+                        return "home"
+                    elif i.surface_rect.collidepoint(event.pos):
+                        return int(i.text)
         for i in widgets:
             i.draw(select_level_window)
         constants.screen.blit(select_level_window, (0, 0))

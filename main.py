@@ -4,6 +4,7 @@ from game import game
 from settings_screen import settings_screen
 from start_screen import start_screen
 from select_level_screen import select_level_screen
+from constants import MAX_LEVEL
 
 pygame.init()
 pygame.display.set_caption("MY GAME")
@@ -24,19 +25,26 @@ while True:
             start_screen_open = False
     if select_level_screen_open:
         level = select_level_screen()
-        game_screen_open = True
-        select_level_screen_open = False
+        if level == "home":
+            start_screen_open = True
+            select_level_screen_open = False
+        else:
+            game_screen_open = True
+            select_level_screen_open = False
     if game_screen_open:
         event = game(level)
-        if event == "level completed":
-            start_screen_open = True
-            game_screen_open = False
+        if event == "next":
+            level += 1
+            if level > MAX_LEVEL:
+                select_level_screen_open = True
+                game_screen_open = False
+                level -= 1
         elif event == "home":
             start_screen_open = True
             game_screen_open = False
 
     if settings_screen_open:
         button = settings_screen()
-        if button == "start":
+        if button == "home":
             start_screen_open = True
             settings_screen_open = False
