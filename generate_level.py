@@ -14,7 +14,6 @@ def generate_level(num):
     ex, ey = None, None
     all_sprites.empty()
     platforms_group.empty()
-    print(all_sprites, 1)
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == '#':

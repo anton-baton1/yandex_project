@@ -5,14 +5,13 @@ from terminate import terminate
 from widgets import Button, Label
 
 
-def win_screen():
+def lose_screen():
     win_window = pygame.Surface((300, 200))
 
-    win = Label(0, 0, 300, 50, "Победа", 32)
-    next_button = Button(125, 120, 50, 50, "▶▶", 12)
-    restart_button = Button(220, 120, 50, 50, "↻", 20)
-    home_button = Button(30, 120, 50, 50, "⌂", 20)
-    widgets = (win, next_button, restart_button, home_button)
+    lose = Label(0, 0, 300, 50, "Поражение", 32)
+    restart_button = Button(200, 120, 50, 50, "↻", 20)
+    home_button = Button(50, 120, 50, 50, "⌂", 20)
+    widgets = (lose, restart_button, home_button)
 
     while True:
         win_window.fill(pygame.Color("#595959"))
@@ -21,8 +20,6 @@ def win_screen():
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
-                if next_button.surface_rect.collidepoint(x - 250, y - 200):
-                    return "next"
                 if restart_button.surface_rect.collidepoint(x - 250, y - 200):
                     return "restart"
                 if home_button.surface_rect.collidepoint(x - 250, y - 200):

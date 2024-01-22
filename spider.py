@@ -3,17 +3,16 @@ import pygame
 import constants
 from load_image import load_image
 
-
 class Spider(pygame.sprite.Sprite):
     image = load_image("demo_spider.png", -1)
 
     def __init__(self, pos, platform_group_name, *group):
         super().__init__(*group)
-        self.image = Spider.image
+        self.platform_group_name = platform_group_name
+
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-        self.platform_group_name = platform_group_name
 
         self.acceleration_y = 0
         self.velocity_y = 0

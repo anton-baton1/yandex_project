@@ -2,14 +2,15 @@ import pygame
 
 import constants
 from camera import Camera
-from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, BLACK, SIZE, VERY_DARK_GRAY, screen
+from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
+from pause_screen import pause_screen
 from terminate import terminate
 from timer import Timer
 from web import Web
 from web_thread import WebThread
-from pause_screen import pause_screen
 from win_screen import win_screen
+from lose_screen import lose_screen
 
 
 def game(level):
@@ -53,14 +54,34 @@ def game(level):
                 web_thread = WebThread(spider, web, all_sprites)
                 game_screen.blit(web_thread.image.convert_alpha(), (0, 0))
                 web_flag = True
-                if web_thread.length > MAX_WEB_LENGTH or not pygame.sprite.spritecollide(web, spider.platform_group_name,
-                                                                                     False):
+                if web_thread.length > MAX_WEB_LENGTH or \
+                        not pygame.sprite.spritecollide(web, spider.platform_group_name, False):
                     all_sprites.remove(web, web_thread)
                     web_flag = False
             if event.type == pygame.MOUSEBUTTONUP and event.button == 3 and not pause_flag:
                 all_sprites.remove(web, web_thread)
                 del web, web_thread
                 web_flag = False
+
+        # print(spider.rect.y)
+        if spider.rect.y >= 320 and timer_flag:
+            print("Упал")
+            action = lose_screen()
+            if action == "restart":
+                return
+            elif action == "home":
+                game_screen.fill(VERY_DARK_GRAY)
+                return "home"
+
+        camera.update(spider)
+        for sprite in all_sprites:
+            camera.apply(sprite)
+
+        if web_flag:
+            spider.acceleration_y = 0
+            spider.velocity_y = 0
+            game_screen.blit(web_thread.image, (0, 0))
+
         if pygame.sprite.collide_mask(spider, exit):
             action = win_screen()
             if action == "next":
@@ -70,15 +91,7 @@ def game(level):
             elif action == "home":
                 game_screen.fill(VERY_DARK_GRAY)
                 return "home"
-        print(spider.rect)
-        camera.update(spider)
-        for sprite in all_sprites:
-            camera.apply(sprite)
 
-        if web_flag:
-            spider.acceleration_y = 0
-            spider.velocity_y = 0
-            game_screen.blit(web_thread.image, (0, 0))
         if not pause_flag:
             all_sprites.draw(game_screen)
             all_sprites.update()
