@@ -3,7 +3,7 @@ import json
 import pygame
 
 from camera import Camera
-from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen
+from constants import MAX_WEB_LENGTH, FPS, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
 from lose_screen import lose_screen
 from pause_screen import pause_screen
@@ -20,10 +20,8 @@ def game(level):
     with open("settings.txt", "r") as file:
         binds = json.load(file)
 
-    pause = pygame.Surface((40, 40), pygame.SRCALPHA)
-    pause_button = pygame.draw.circle(pause, WHITE, (20, 20), 20, 2)
-    pygame.draw.line(pause, WHITE, (14, 10), (14, 30), 2)
-    pygame.draw.line(pause, WHITE, (24, 10), (24, 30), 2)
+    pause = pygame.Surface((50, 50), pygame.SRCALPHA)
+    pause.blit(pygame.image.load("data/pause.png"), (-10, -10))
 
     web_flag = False
     timer_flag = False
@@ -37,7 +35,8 @@ def game(level):
 
     while True:
         clock.tick(FPS)
-        game_screen.fill(VERY_DARK_GRAY)
+        game_screen.blit(pygame.image.load("data/forest.jpg"), (0, 0))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
@@ -50,7 +49,7 @@ def game(level):
                 pygame.time.set_timer(TIMER_EVENT, 10)
                 timer_flag = True
 
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and pause_button.collidepoint(
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and pause.get_rect().collidepoint(
                     event.pos)) or (event.type == pygame.KEYDOWN and event.key == binds["bind_pause"]):
                 pause_flag = not pause_flag
 
@@ -107,6 +106,7 @@ def game(level):
             elif action == "home":
                 game_screen.fill(VERY_DARK_GRAY)
                 return "home"
+
         game_screen.blit(pause, (0, 0))
         game_screen.blit(timer.text, (timer.x, timer.y))
         screen.blit(game_screen, (0, 0))
