@@ -1,7 +1,9 @@
+import json
+
 import pygame
 
-import constants
 from load_image import load_image
+
 
 class Spider(pygame.sprite.Sprite):
     image = load_image("demo_spider.png", -1)
@@ -20,8 +22,12 @@ class Spider(pygame.sprite.Sprite):
 
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[constants.bind_jump] and pygame.sprite.spritecollide(self, self.platform_group_name,
-                                                                     False) and self.velocity_y == 0:
+
+        with open("settings.txt", "r") as file:
+            binds = json.load(file)
+
+        if keys[binds["bind_jump"]] and pygame.sprite.spritecollide(self, self.platform_group_name,
+                                                                    False) and self.velocity_y == 0:
             self.acceleration_y = -10
         if not pygame.sprite.spritecollide(self, self.platform_group_name, False):
             self.acceleration_y = 0.5
@@ -43,9 +49,9 @@ class Spider(pygame.sprite.Sprite):
                                i.rect.top <= self.rect.top <= i.rect.bottom) and
                               i.rect.right >= self.rect.left > i.rect.left) for i in self.platform_group_name])
 
-        if keys[constants.bind_move_right] and coll_right:
+        if keys[binds["bind_move_right"]] and coll_right:
             self.velocity_x = 5
-        if keys[constants.bind_move_left] and coll_left:
+        if keys[binds["bind_move_left"]] and coll_left:
             self.velocity_x = -5
         self.rect.x += self.velocity_x
         self.velocity_x = 0

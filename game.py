@@ -1,20 +1,25 @@
+import json
+
 import pygame
 
 import constants
 from camera import Camera
 from constants import MAX_WEB_LENGTH, FPS, WHITE, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen
 from generate_level import generate_level
+from lose_screen import lose_screen
 from pause_screen import pause_screen
 from terminate import terminate
 from timer import Timer
 from web import Web
 from web_thread import WebThread
 from win_screen import win_screen
-from lose_screen import lose_screen
 
 
 def game(level):
     game_screen = pygame.Surface(SIZE)
+
+    with open("settings.txt", "r") as file:
+        binds = json.load(file)
 
     pause = pygame.Surface((40, 40), pygame.SRCALPHA)
     pause_button = pygame.draw.circle(pause, WHITE, (20, 20), 20, 2)
@@ -42,7 +47,7 @@ def game(level):
                 timer.update()
 
             if event.type == pygame.KEYDOWN and not timer_flag and event.key in (
-                    constants.bind_move_left, constants.bind_move_right, constants.bind_jump):
+                    binds["bind_move_left"], binds["bind_move_right"], binds["bind_jump"]):
                 pygame.time.set_timer(TIMER_EVENT, 10)
                 timer_flag = True
 
@@ -63,9 +68,7 @@ def game(level):
                 del web, web_thread
                 web_flag = False
 
-        # print(spider.rect.y)
         if spider.rect.y >= 320 and timer_flag:
-            print("Упал")
             action = lose_screen()
             if action == "restart":
                 return

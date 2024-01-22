@@ -1,0 +1,1 @@
+{"bind_move_left": 97, "bind_move_right": 100, "bind_jump": 32}

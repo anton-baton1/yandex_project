@@ -16,9 +16,6 @@ DARK_YELLOW = pygame.Color("#f1c232")
 LIGHT_GRAY = pygame.Color("#efefef")
 VERY_DARK_GRAY = pygame.Color("#1b1b1b")
 
-bind_move_left = pygame.K_a
-bind_move_right = pygame.K_d
-bind_jump = pygame.K_SPACE
 
 screen = pygame.display.set_mode(SIZE, pygame.SRCALPHA)
 clock = pygame.time.Clock()
