@@ -1,6 +1,6 @@
 import pygame
 
-from constants import screen
+from sources import screen
 from terminate import terminate
 from widgets import Button, Label
 

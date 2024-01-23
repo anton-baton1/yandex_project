@@ -1,12 +1,14 @@
 import pygame
 
-from constants import screen
+from sources import screen, absolute_win_music
 from star import Star
 from terminate import terminate
 from widgets import Button, Label
 
 
 def win_screen(status1, status2, status3):
+    if status1 and status2 and status3:
+        absolute_win_music.play()
     win_window = pygame.Surface((400, 300))
 
     win = Label(0, 0, 400, 50, "Победа", 32)

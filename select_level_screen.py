@@ -1,6 +1,6 @@
 import pygame
 
-from constants import SIZE, screen, WIDTH
+from sources import SIZE, screen, WIDTH
 from terminate import terminate
 from widgets import Button, Label
 

@@ -22,3 +22,10 @@ clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 platforms_group = pygame.sprite.Group()
 star_for_collect = pygame.sprite.Group()
+
+pygame.mixer.init()
+
+main_music = pygame.mixer.Sound("data/music/main.wav")
+game_music = pygame.mixer.Sound("data/music/game.wav")
+absolute_win_music = pygame.mixer.Sound("data/music/win.wav")
+lose_music = pygame.mixer.Sound("data/music/hooooow.wav")

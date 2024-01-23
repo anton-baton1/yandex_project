@@ -3,7 +3,7 @@ import json
 import pygame
 
 from camera import Camera
-from constants import MAX_WEB_LENGTH, FPS, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen, star_for_collect, BLACK
+from sources import MAX_WEB_LENGTH, FPS, all_sprites, clock, SIZE, VERY_DARK_GRAY, screen, star_for_collect, BLACK
 from generate_level import generate_level
 from lose_screen import lose_screen
 from pause_screen import pause_screen

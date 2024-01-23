@@ -1,6 +1,6 @@
 import pygame
 
-from constants import WIDTH, DARK_YELLOW
+from sources import WIDTH, DARK_YELLOW
 
 
 class Timer:

@@ -1,4 +1,4 @@
-from constants import platforms_group, all_sprites, star_for_collect
+from sources import platforms_group, all_sprites, star_for_collect
 from level_exit import LevelExit
 from platform import Platform
 from spider import Spider

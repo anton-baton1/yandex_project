@@ -1,11 +1,12 @@
 import pygame
 
-from constants import screen
+from sources import screen, lose_music
 from terminate import terminate
 from widgets import Button, Label
 
 
 def lose_screen():
+    lose_music.play()
     win_window = pygame.Surface((300, 200))
 
     lose = Label(0, 0, 300, 50, "Поражение", 32)
