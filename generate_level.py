@@ -1,7 +1,8 @@
-from constants import platforms_group, all_sprites
+from constants import platforms_group, all_sprites, star_for_collect
 from level_exit import LevelExit
 from platform import Platform
 from spider import Spider
+from star import Star
 
 
 def generate_level(num):
@@ -14,14 +15,17 @@ def generate_level(num):
     ex, ey = None, None
     all_sprites.empty()
     platforms_group.empty()
+    star_for_collect.empty()
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == '#':
                 Platform((x * 40, y * 40), (40, 40), platforms_group, all_sprites)
-            elif level[y][x] == '@':
+            elif level[y][x] == 'P':
                 px, py = x, y
-            elif level[y][x] == '%':
+            elif level[y][x] == 'E':
                 ex, ey = x, y
+            elif level[y][x] == "S":
+                Star(x * 40, y * 40, True, True, star_for_collect, all_sprites)
     new_player = Spider((px * 40, py * 40), platforms_group, all_sprites)
     new_exit = LevelExit(ex * 40, ey * 40, all_sprites)
     return new_player, new_exit
