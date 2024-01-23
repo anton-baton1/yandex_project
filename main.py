@@ -7,7 +7,7 @@ from select_level_screen import select_level_screen
 from constants import MAX_LEVEL
 
 pygame.init()
-pygame.display.set_caption("MY GAME")
+pygame.display.set_caption("SAPW")
 
 start_screen_open = True
 select_level_screen_open = False

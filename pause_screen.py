@@ -10,8 +10,8 @@ def pause_screen():
 
     pause = Label(0, 0, 300, 50, "Пауза", 32)
     play_button = Button(125, 120, 50, 50, "▶", 20)
-    restart_button = Button(220, 120, 50, 50, "⟳", 20)
-    home_button = Button(30, 120, 50, 50, u"⌂", 20)
+    restart_button = Button(220, 120, 50, 50, "r", 20)
+    home_button = Button(30, 120, 50, 50, u"h", 20)
     widgets = (pause, play_button, restart_button, home_button)
 
     while True:

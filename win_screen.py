@@ -10,8 +10,8 @@ def win_screen(star1, star2, star3):
 
     win = Label(0, 0, 400, 50, "Победа", 32)
     next_button = Button(175, 220, 50, 50, "▶▶", 12)
-    restart_button = Button(320, 220, 50, 50, "↻", 20)
-    home_button = Button(30, 220, 50, 50, "⌂", 20)
+    restart_button = Button(320, 220, 50, 50, "r", 20)
+    home_button = Button(30, 220, 50, 50, "h", 20)
     widgets = (win, next_button, restart_button, home_button)
 
     while True:

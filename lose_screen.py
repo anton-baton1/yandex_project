@@ -9,8 +9,8 @@ def lose_screen():
     win_window = pygame.Surface((300, 200))
 
     lose = Label(0, 0, 300, 50, "Поражение", 32)
-    restart_button = Button(200, 120, 50, 50, "↻", 20)
-    home_button = Button(50, 120, 50, 50, "⌂", 20)
+    restart_button = Button(200, 120, 50, 50, "r", 20)
+    home_button = Button(50, 120, 50, 50, "h", 20)
     widgets = (lose, restart_button, home_button)
 
     while True:

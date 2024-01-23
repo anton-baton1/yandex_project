@@ -47,18 +47,20 @@ def settings_screen():
                     text_input_pause = True
             if event.type == pygame.KEYDOWN:
                 new_binds = binds
-                if text_input_move_left:
-                    move_left.set_text(pygame.key.name(event.key).upper())
-                    new_binds["bind_move_left"] = pygame.key.key_code(move_left.text)
-                elif text_input_move_right:
-                    move_right.set_text(pygame.key.name(event.key).upper())
-                    new_binds["bind_move_right"] = pygame.key.key_code(move_right.text)
-                elif text_input_jump:
-                    jump.set_text(pygame.key.name(event.key).upper())
-                    new_binds["bind_jump"] = pygame.key.key_code(jump.text)
-                elif text_input_pause:
-                    pause.set_text(pygame.key.name(event.key).upper())
-                    new_binds["bind_pause"] = pygame.key.key_code(pause.text)
+                key = event.key
+                if key not in binds.values():
+                    if text_input_move_left:
+                        move_left.set_text(pygame.key.name(event.key).upper())
+                        new_binds["bind_move_left"] = pygame.key.key_code(move_left.text)
+                    elif text_input_move_right:
+                        move_right.set_text(pygame.key.name(event.key).upper())
+                        new_binds["bind_move_right"] = pygame.key.key_code(move_right.text)
+                    elif text_input_jump:
+                        jump.set_text(pygame.key.name(event.key).upper())
+                        new_binds["bind_jump"] = pygame.key.key_code(jump.text)
+                    elif text_input_pause:
+                        pause.set_text(pygame.key.name(event.key).upper())
+                        new_binds["bind_pause"] = pygame.key.key_code(pause.text)
 
                 with open("settings.txt", "w") as file:
                     json.dump(new_binds, file)
