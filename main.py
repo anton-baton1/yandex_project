@@ -15,8 +15,9 @@ game_screen_open = False
 settings_screen_open = False
 
 while True:
-    main_music.play(-1)
     if start_screen_open:
+        main_music.stop()
+        main_music.play(-1)
         button = start_screen()
         if button == "play":
             select_level_screen_open = True

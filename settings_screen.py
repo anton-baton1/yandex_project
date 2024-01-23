@@ -9,12 +9,12 @@ from widgets import Button, Label, InputBox
 
 def settings_screen():
     settings_window = pygame.Surface(SIZE)
-    settings_window.blit(pygame.image.load("data/images/blured_jungle.png"), (-150, -50))
 
     with open("settings.txt", "r") as file:
         binds = json.load(file)
 
-    back_button = Button(20, 550, 100, 30, "Назад", 15)
+    back_button = Button(20, 550, 100, 40, "Назад", 15)
+    base_settings_button = Button(580, 550, 200, 40, "По умолчанию", 15)
     move_left = InputBox(550, 100, 220, 50, pygame.key.name(binds["bind_move_left"]).upper())
     move_right = InputBox(550, 200, 220, 50, pygame.key.name(binds["bind_move_right"]).upper())
     jump = InputBox(550, 300, 220, 50, pygame.key.name(binds["bind_jump"]).upper())
@@ -23,7 +23,8 @@ def settings_screen():
     move_right_lbl = Label(50, 200, 310, 50, "Движение вправо", 20)
     jump_lbl = Label(50, 300, 130, 50, "Прыжок", 20)
     pause_lbl = Label(50, 400, 115, 50, "Пауза", 20)
-    widgets = (back_button, move_left, move_right, jump, pause, move_left_lbl, move_right_lbl, jump_lbl, pause_lbl)
+    widgets = (back_button, move_left, move_right, jump, pause, move_left_lbl, move_right_lbl, jump_lbl, pause_lbl,
+               base_settings_button)
 
     text_input_pause = False
     text_input_jump = False
@@ -31,6 +32,8 @@ def settings_screen():
     text_input_move_left = False
 
     while True:
+        settings_window.blit(pygame.image.load("data/images/blured_jungle.png"), (-150, -50))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
@@ -38,6 +41,24 @@ def settings_screen():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.surface_rect.collidepoint(event.pos):
                     return "home"
+                if base_settings_button.surface_rect.collidepoint(event.pos):
+                    new_binds = binds
+
+                    move_left.set_text(pygame.key.name(binds["base_settings"]["bind_move_left"]).upper())
+                    new_binds["bind_move_left"] = binds["base_settings"]["bind_move_left"]
+
+                    move_right.set_text(pygame.key.name(binds["base_settings"]["bind_move_right"]).upper())
+                    new_binds["bind_move_right"] = binds["base_settings"]["bind_move_right"]
+
+                    jump.set_text(pygame.key.name(binds["base_settings"]["bind_jump"]).upper())
+                    new_binds["bind_jump"] = binds["base_settings"]["bind_jump"]
+
+                    pause.set_text(pygame.key.name(binds["base_settings"]["bind_pause"]).upper())
+                    new_binds["bind_pause"] = binds["base_settings"]["bind_pause"]
+
+                    with open("settings.txt", "w") as file:
+                        json.dump(new_binds, file)
+
                 text_input_move_left = False
                 text_input_move_right = False
                 text_input_jump = False

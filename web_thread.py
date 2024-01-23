@@ -2,7 +2,7 @@ import math
 
 import pygame
 
-from sources import SIZE, BLACK
+from sources import SIZE, BLACK, WHITE
 
 
 class WebThread(pygame.sprite.Sprite):
@@ -30,10 +30,10 @@ class WebThread(pygame.sprite.Sprite):
         if not pygame.sprite.spritecollide(self.spider, self.spider.platform_group_name, False):
             self.acceleration = -0.01 * math.sin(self.angle)
             self.vel += self.acceleration
-            self.vel *= 0.995  # демпфинг
+            self.vel *= 0.995
             self.angle += self.vel
             self.spider.rect.x = round(self.web.rect.x + (self.web.rect.width / 2 - self.spider.rect.width / 2) +
                                        self.length * math.sin(self.angle))
             self.spider.rect.y = round(self.web.rect.y + self.length * math.cos(self.angle))
         self.image.fill((0, 0, 0, 0))
-        pygame.draw.line(self.image, BLACK, self.spider.rect.center, self.web.rect.center, 2)
+        pygame.draw.line(self.image, WHITE, self.spider.rect.center, self.web.rect.center, 2)

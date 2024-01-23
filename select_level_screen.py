@@ -10,9 +10,9 @@ def select_level_screen():
     select_level_window.blit(pygame.image.load("data/images/blured_jungle.png"), (-150, -50))
 
     select_level = Label(0, 0, WIDTH, 50, "Выберите уровень", 44)
-    level_1 = Button(10, 275, 50, 50, "1", 24)
-    level_2 = Button(110, 275, 50, 50, "2", 24)
-    level_3 = Button(210, 275, 50, 50, "3", 24)
+    level_1 = Button(275, 275, 50, 50, "1", 24)
+    level_2 = Button(375, 275, 50, 50, "2", 24)
+    level_3 = Button(475, 275, 50, 50, "3", 24)
     back_button = Button(20, 550, 100, 30, "Назад", 15)
     widgets = (level_1, level_2, level_3, back_button, select_level)
 

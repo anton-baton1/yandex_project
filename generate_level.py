@@ -1,6 +1,6 @@
-from sources import platforms_group, all_sprites, star_for_collect
 from level_exit import LevelExit
 from platform import Platform
+from sources import platforms_group, all_sprites, star_for_collect
 from spider import Spider
 from star import Star
 
