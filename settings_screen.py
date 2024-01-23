@@ -25,6 +25,11 @@ def settings_screen():
     pause_lbl = Label(50, 400, 115, 50, "Пауза", 20)
     widgets = (back_button, move_left, move_right, jump, pause, move_left_lbl, move_right_lbl, jump_lbl, pause_lbl)
 
+    text_input_pause = False
+    text_input_jump = False
+    text_input_move_right = False
+    text_input_move_left = False
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
