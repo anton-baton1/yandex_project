@@ -2,7 +2,7 @@ import pygame
 
 
 class LevelExit(pygame.sprite.Sprite):
-    sheet = pygame.image.load("data/black_hole.png")
+    sheet = pygame.image.load("data/images/black_hole.png")
 
     def __init__(self, x, y, *group):
         super().__init__(*group)

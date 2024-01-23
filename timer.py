@@ -17,4 +17,3 @@ class Timer:
         self.seconds -= 0.01
         self.text = self.font.render("{:05.2f}".format(self.seconds), True, self.color)
         self.x = WIDTH - self.text.get_width()
-

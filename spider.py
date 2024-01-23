@@ -6,7 +6,7 @@ from load_image import load_image
 
 
 class Spider(pygame.sprite.Sprite):
-    image = load_image("demo_spider.png", -1)
+    image = load_image("images/spider.png", -1)
 
     def __init__(self, pos, platform_group_name, *group):
         super().__init__(*group)

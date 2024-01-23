@@ -9,7 +9,7 @@ from widgets import Button, Label, InputBox
 
 def settings_screen():
     settings_window = pygame.Surface(SIZE)
-    settings_window.blit(pygame.image.load("data/blured_jungle.png"), (-150, -50))
+    settings_window.blit(pygame.image.load("data/images/blured_jungle.png"), (-150, -50))
 
     with open("settings.txt", "r") as file:
         binds = json.load(file)
@@ -50,6 +50,7 @@ def settings_screen():
                     text_input_jump = True
                 elif pause.surface_rect.collidepoint(event.pos):
                     text_input_pause = True
+
             if event.type == pygame.KEYDOWN:
                 new_binds = binds
                 key = event.key

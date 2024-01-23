@@ -22,7 +22,7 @@ def game(level):
         binds = json.load(file)
 
     pause = pygame.Surface((50, 50), pygame.SRCALPHA)
-    pause.blit(pygame.image.load("data/pause.png"), (-10, -10))
+    pause.blit(pygame.image.load("data/images/pause.png"), (-10, -10))
 
     star_group = pygame.sprite.Group()
     time_star = Star(400, 0, True, False, star_group)
@@ -41,7 +41,6 @@ def game(level):
 
     while True:
         clock.tick(FPS)
-        # game_screen.blit(pygame.image.load("data/forest.jpg"), (0, 0))
         game_screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

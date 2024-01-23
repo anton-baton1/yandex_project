@@ -1,4 +1,5 @@
 import pygame
+
 from constants import DARK_YELLOW, VERY_DARK_GRAY, LIGHT_GRAY
 
 

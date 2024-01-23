@@ -1,9 +1,9 @@
 import pygame
 
 from constants import screen
+from star import Star
 from terminate import terminate
 from widgets import Button, Label
-from star import Star
 
 
 def win_screen(status1, status2, status3):

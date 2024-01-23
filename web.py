@@ -2,7 +2,7 @@ import pygame
 
 
 class Web(pygame.sprite.Sprite):
-    image = pygame.image.load("data/web.png")
+    image = pygame.image.load("data/images/web.png")
 
     def __init__(self, pos, *group):
         super().__init__(*group)

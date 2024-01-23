@@ -2,7 +2,7 @@ import pygame
 
 
 class Platform(pygame.sprite.Sprite):
-    image = pygame.image.load("data/grass.png")
+    image = pygame.image.load("data/images/grass.png")
 
     def __init__(self, pos, size, *group):
         super().__init__(*group)

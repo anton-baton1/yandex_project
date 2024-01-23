@@ -1,11 +1,12 @@
 import pygame
+
 from load_image import load_image
 
 
 class Star(pygame.sprite.Sprite):
-    image_active = load_image("star_active.png")
-    image_passive = load_image("star_passive.png")
-    small_image = load_image("small_star.png")
+    image_active = load_image("images/star_active.png")
+    image_passive = load_image("images/star_passive.png")
+    small_image = load_image("images/small_star.png")
 
     def __init__(self, x, y, active, small, *group):
         super().__init__(*group)
